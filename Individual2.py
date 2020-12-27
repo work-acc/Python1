@@ -10,76 +10,35 @@ import math
 
 
 class Number:
-    def __init__(self, x=0, y=0):
-        self.x = float(x)
-        self.y = float(y)
-        self.r = 0
-        self.u = 0
+    def __init__(self, num=0):
+        self.num = float(num)
 
-        self.difference()
-        self.multiplication()
+    def mul(self, other):
+        return Number(self.num * other.num)
 
-    def read(self):
-        x = input("Введите первое число: ")
-        y = input("Введите второе число: ")
-
-        self.x = float(x)
-        self.y = float(y)
-
-        self.difference()
-        self.multiplication()
-
-    def display(self):
-        print(f"Разность: {self.r}")
-        print(f"Умножение: {self.u}")
-
-    def difference(self):
-        if self.x > self.y:
-            self.r = self.x - self.y
-        else:
-            self.r = self.y - self.x
-
-    def multiplication(self):
-        self.u = self.x * self.y
+    def sub(self, other):
+        return Number(self.num - other.num)
 
 
 class Real(Number):
-    def __init__(self, a=1, n=1):
-        super(Real, self).__init__()
-        self.a = float(a)
-        self.n = float(n)
-        self.s = 0
-        self.p = 0
+    def __init__(self, num=0):
+        super(Real, self).__init__(num)
 
-        self.degree()
-        self.pi()
+    def sqrtn(self, n):
+        return self.num ** (1 / n)
 
-    def read(self):
-        a = input("Введите число: ")
-        n = input("Введите степень: ")
-
-        self.a = float(a)
-        self.n = float(n)
-
-        self.degree()
-        self.pi()
-
-    def display(self):
-        print(f"Корень числа в произвольной степени: {self.s}")
-        print(f"Число Pi в произвольной степени: {self.p}")
-
-    def degree(self):
-        self.s = pow(self.n, (1 / self.a))
-
-    def pi(self):
-        self.p = math.pi ** self.n
+    def pow(self, other):
+        return math.pi ** other.num
 
 
 if __name__ == '__main__':
-    r1 = Number()
-    r1.read()
-    r1.display()
-
-    r2 = Real()
-    r2.read()
-    r2.display()
+    r1 = Number(2)
+    r2 = Real(4)
+    r = r1.mul(r2)
+    print(r.num)
+    r = r1.sub(r2)
+    print(r.num)
+    r = r2.sqrtn(2)
+    print(r)
+    r = r2.pow(r1)
+    print(r)

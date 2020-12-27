@@ -35,11 +35,11 @@ class Rational:
 
     @property
     def numerator(self):
-            return self.__numerator
+        return self.__numerator
 
     @property
     def denominator(self):
-            return self.__denominator
+        return self.__denominator
 
     # Прочитать значение дроби с клавиатуры. Дробь вводится
     # как a/b.
@@ -104,7 +104,7 @@ class Rational:
     def equals(self, rhs):
         if isinstance(rhs, Rational):
             return (self.numerator == rhs.numerator) and \
-                    (self.denominator == rhs.denominator)
+                   (self.denominator == rhs.denominator)
         else:
             return False
 

@@ -14,23 +14,11 @@ import datetime
 
 class Date:
 
-    def __init__(self, year=1, month=1, day=1, number=0, data1=0):
+    def __init__(self, year=1, month=1, day=1, number=0):
         self.year = int(year)
         self.month = int(month)
         self.day = int(day)
         self.number = float(number)
-        self.kk = 0
-        self.data1 = int(data1)
-        self.cc = 0
-        self.s = 0
-        self.q = 0
-        self.r = 0
-
-        self.new_data()
-        self.new_data1()
-        self.leap_year()
-        self.comparison()
-        self.difference()
 
     def read(self):
         year = input("Введите год: ")
@@ -41,53 +29,58 @@ class Date:
         self.year = int(year)
         self.month = int(month)
         self.day = int(day)
-        self.number = int(number)
-
-        self.new_data()
-        self.new_data1()
-        self.leap_year()
-        self.comparison()
-        self.difference()
+        self.number = float(number)
 
     def display(self):
-        print(f"{self.cc}")
-        print(f"{self.kk}")
-        print(f"{self.s}")
-        print(f"{self.q}")
-        print(f"{self.r}")
+        print(f"{self.year}")
+        print(f"{self.month}")
+        print(f"{self.day}")
 
-    def new_data(self):
+    def add(self):
         a = datetime.date(self.year, self.month, self.day)
         b = datetime.timedelta(days=self.number)
-        self.cc = a + b
+        return a + b
 
-    def new_data1(self):
+    def sub(self):
         a = datetime.date(self.year, self.month, self.day)
         b = datetime.timedelta(days=self.number)
-        self.kk = a - b
+        return a - b
 
     def leap_year(self):
-        if (self.year % 4 == 0 and self.year % 100 != 0) or (self.year % 400 == 0):
-            self.s = "Високосный"
-        else:
-            self.s = "Обычный"
+        leap = (self.year % 4 == 0 and self.year % 100 != 0) or (self.year % 400 == 0)
+        return f"Високосный: {leap}"
 
-    def comparison(self):
-        if self.cc < self.kk:
-            self.q = "После"
-        if self.cc == self.kk:
-            self.q = "Равно"
-        else:
-            self.q = "До"
+    def lt(self):
+        a = datetime.date(self.year, self.month, self.day)
+        b = datetime.timedelta(days=self.number)
+        return f"После: {a + b < a - b}"
+
+    def eq(self):
+        a = datetime.date(self.year, self.month, self.day)
+        b = datetime.timedelta(days=self.number)
+        return f"Равно: {a + b == a - b}"
+
+    def gt(self):
+        a = datetime.date(self.year, self.month, self.day)
+        b = datetime.timedelta(days=self.number)
+        return f"До: {a + b > a - b}"
 
     def difference(self):
-        if self.cc > self.kk:
-            self.r = self.cc - self.kk
-        else:
-            self.r = self.kk - self.cc
+        a = datetime.date(self.year, self.month, self.day)
+        b = datetime.timedelta(days=self.number)
+        x = a + b
+        y = a - b
+        return x - y
 
 
 if __name__ == '__main__':
     r1 = Date()
     r1.read()
     r1.display()
+    print(r1.add())
+    print(r1.sub())
+    print(r1.leap_year())
+    print(r1.lt())
+    print(r1.eq())
+    print(r1.gt())
+    print(r1.difference())
