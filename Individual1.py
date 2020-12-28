@@ -14,63 +14,58 @@ import datetime
 
 class Date:
 
-    def __init__(self, year=1, month=1, day=1, number=0):
+    def __init__(self, year=1, month=1, day=1, days=10):
         self.year = int(year)
         self.month = int(month)
         self.day = int(day)
-        self.number = float(number)
+        self.days = float(days)
 
     def read(self):
         year = input("Введите год: ")
         month = input("Введите месяц: ")
         day = input("Введите день: ")
-        number = input("Количество дней: ")
 
         self.year = int(year)
         self.month = int(month)
         self.day = int(day)
-        self.number = float(number)
 
     def display(self):
-        print(f"{self.year}")
-        print(f"{self.month}")
-        print(f"{self.day}")
+        print(f"{self.year, self.month, self.day}")
 
     def add(self):
         a = datetime.date(self.year, self.month, self.day)
-        b = datetime.timedelta(days=self.number)
+        b = datetime.timedelta(days=self.days)
         return a + b
 
     def sub(self):
         a = datetime.date(self.year, self.month, self.day)
-        b = datetime.timedelta(days=self.number)
+        b = datetime.timedelta(days=self.days)
         return a - b
 
     def leap_year(self):
-        leap = (self.year % 4 == 0 and self.year % 100 != 0) or (self.year % 400 == 0)
-        return f"Високосный: {leap}"
+        return f"Високосный: {(self.year % 4 == 0 and self.year % 100 != 0) or (self.year % 400 == 0)}"
 
     def lt(self):
         a = datetime.date(self.year, self.month, self.day)
-        b = datetime.timedelta(days=self.number)
+        b = datetime.timedelta(days=self.days)
         return f"После: {a + b < a - b}"
 
     def eq(self):
         a = datetime.date(self.year, self.month, self.day)
-        b = datetime.timedelta(days=self.number)
+        b = datetime.timedelta(days=self.days)
         return f"Равно: {a + b == a - b}"
 
     def gt(self):
         a = datetime.date(self.year, self.month, self.day)
-        b = datetime.timedelta(days=self.number)
+        b = datetime.timedelta(days=self.days)
         return f"До: {a + b > a - b}"
 
     def difference(self):
         a = datetime.date(self.year, self.month, self.day)
-        b = datetime.timedelta(days=self.number)
+        b = datetime.timedelta(days=self.days)
         x = a + b
         y = a - b
-        return x - y
+        return f"Кол-во дней между датами {x - y}"
 
 
 if __name__ == '__main__':
