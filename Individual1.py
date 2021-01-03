@@ -14,58 +14,79 @@ import datetime
 
 class Date:
 
-    def __init__(self, year=1, month=1, day=1, days=10):
-        self.year = int(year)
-        self.month = int(month)
-        self.day = int(day)
-        self.days = float(days)
+    def __init__(self, year=1, month=1, day=1):
+
+        try:
+            if int(year) and int(month) and int(day):
+                self.year = int(year)
+                self.month = int(month)
+                self.day = int(day)
+        except ValueError:
+            print('Вы ввели не число!')
 
     def read(self):
         year = input("Введите год: ")
         month = input("Введите месяц: ")
         day = input("Введите день: ")
 
-        self.year = int(year)
-        self.month = int(month)
-        self.day = int(day)
+        try:
+            if int(year) and int(month) and int(day):
+                self.year = int(year)
+                self.month = int(month)
+                self.day = int(day)
+        except ValueError:
+            print('Вы ввели не число!')
 
     def display(self):
         print(f"{self.year, self.month, self.day}")
 
-    def add(self):
+    def add(self, days=10):
         a = datetime.date(self.year, self.month, self.day)
-        b = datetime.timedelta(days=self.days)
+        b = datetime.timedelta(days)
         return a + b
 
-    def sub(self):
+    def sub(self, days=10):
         a = datetime.date(self.year, self.month, self.day)
-        b = datetime.timedelta(days=self.days)
+        b = datetime.timedelta(days)
         return a - b
 
     def leap_year(self):
-        return f"Високосный: {(self.year % 4 == 0 and self.year % 100 != 0) or (self.year % 400 == 0)}"
+        if (self.year % 4 == 0 and self.year % 100 != 0) or (self.year % 400 == 0):
+            return True
+        else:
+            return False
 
-    def lt(self):
-        a = datetime.date(self.year, self.month, self.day)
-        b = datetime.timedelta(days=self.days)
-        return f"После: {a + b < a - b}"
+    def lt(self, other):
+        if isinstance(other, Date):
+            a = datetime.date(self.year, self.month, self.day) + datetime.timedelta(days=10)
+            b = datetime.date(other.year, other.month, other.day) - datetime.timedelta(days=10)
+            return a < b
+        else:
+            raise ValueError()
 
-    def eq(self):
-        a = datetime.date(self.year, self.month, self.day)
-        b = datetime.timedelta(days=self.days)
-        return f"Равно: {a + b == a - b}"
+    def eq(self, other):
+        if isinstance(other, Date):
+            a = datetime.date(self.year, self.month, self.day) + datetime.timedelta(days=10)
+            b = datetime.date(other.year, other.month, other.day) - datetime.timedelta(days=10)
+            return a == b
+        else:
+            raise ValueError()
 
-    def gt(self):
-        a = datetime.date(self.year, self.month, self.day)
-        b = datetime.timedelta(days=self.days)
-        return f"До: {a + b > a - b}"
+    def gt(self, other):
+        if isinstance(other, Date):
+            a = datetime.date(self.year, self.month, self.day) + datetime.timedelta(days=10)
+            b = datetime.date(other.year, other.month, other.day) - datetime.timedelta(days=10)
+            return a > b
+        else:
+            raise ValueError()
 
-    def difference(self):
-        a = datetime.date(self.year, self.month, self.day)
-        b = datetime.timedelta(days=self.days)
-        x = a + b
-        y = a - b
-        return f"Кол-во дней между датами {x - y}"
+    def difference(self, other, days=10):
+        if isinstance(other, Date):
+            a = datetime.date(self.year, self.month, self.day) + datetime.timedelta(days)
+            b = datetime.date(other.year, other.month, other.day) - datetime.timedelta(days)
+            return int((a - b).days)
+        else:
+            raise ValueError()
 
 
 if __name__ == '__main__':
@@ -74,8 +95,8 @@ if __name__ == '__main__':
     r1.display()
     print(r1.add())
     print(r1.sub())
-    print(r1.leap_year())
-    print(r1.lt())
-    print(r1.eq())
-    print(r1.gt())
-    print(r1.difference())
+    print(f'Високосный? {r1.leap_year()}')
+    print(f'После: {r1.lt(r1)}')
+    print(f'Равно: {r1.eq(r1)}')
+    print(f'До: {r1.gt(r1)}')
+    print(f'Кол-во дней между датами: {r1.difference(r1)}')
